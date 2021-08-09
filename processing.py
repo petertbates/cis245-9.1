@@ -10,20 +10,55 @@ def checkInput(toCheck):
 
 def checkDir(dirCheck):
 	if os.path.isdir(dirCheck) == False:
-		print ("this is false")
 		return False
 	else:
 		return True
 
+def checkFile(fileCheck):
+	if os.path.isfile(fileCheck):
+		return True
+	else:
+		return False
+
+def getInfo():
+	userName = input("Please enter your name: ")
+	userName = checkInput(userName)
+	userAddress = input("Please enter your address: ")
+	userAddress = checkInput(userAddress)
+	userPhone = input("Please enter your phone number: ")
+	userPhone = checkInput(userPhone)
+	csv = userName + "," + userAddress + "," + userPhone
+	return csv
+
 #main block of code
 isDir = False
-filelist = os.listdir()
-print (filelist)
+isFile = True
 while isDir == False:
 	directory = input("Please enter the name of the directory you would like to use: ")
 	directory = checkInput(directory)
 	isDir = checkDir(directory)
-	print(repr(directory))
 	if isDir == False:
 		print ("Please enter a valid directory.")
+while isFile:
+	fileName = input("Please enter a name for your file: ")
+	fileName = checkInput(fileName)
+	fileName = directory + "/" + fileName + ".txt"
+	isFile = checkFile(fileName)
+	if isFile:
+		print ("Please enter a new filename.")
 
+userInfo = getInfo()
+
+with open(fileName, 'w') as toWrite:
+	toWrite.write(userInfo)
+
+print (directory)
+print (fileName)
+print (userInfo)
+print(os.listdir())
+
+with open(fileName, 'r') as toRead:
+	fileInfo = toRead.read()
+
+print ("Thank you, your information has been stored here: " + fileName)
+print ("This file contains: " + fileInfo)
