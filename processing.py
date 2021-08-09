@@ -30,15 +30,17 @@ def getInfo():
 	csv = userName + "," + userAddress + "," + userPhone
 	return csv
 
-#main block of code
+#Main block of code
 isDir = False
 isFile = True
+#This will check and reprompt for input if the directory doesn't exist
 while isDir == False:
 	directory = input("Please enter the name of the directory you would like to use: ")
 	directory = checkInput(directory)
 	isDir = checkDir(directory)
 	if isDir == False:
 		print ("Please enter a valid directory.")
+#This will check and reprompt for input if the file already exists
 while isFile:
 	fileName = input("Please enter a name for your file: ")
 	fileName = checkInput(fileName)
@@ -47,16 +49,14 @@ while isFile:
 	if isFile:
 		print ("Please enter a new filename.")
 
+#Another function to build the csv for the txt file
 userInfo = getInfo()
 
+#Opening file to write
 with open(fileName, 'w') as toWrite:
 	toWrite.write(userInfo)
 
-print (directory)
-print (fileName)
-print (userInfo)
-print(os.listdir())
-
+#Opening file to read
 with open(fileName, 'r') as toRead:
 	fileInfo = toRead.read()
 
